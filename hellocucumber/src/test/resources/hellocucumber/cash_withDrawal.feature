@@ -16,20 +16,11 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-@ignore
-Feature: Tic-tac-toe
-  
-	I want to use tic-tac-toe to practice handling data table.
+@tag
+Feature: Cash Withdrawal
 
-  Scenario: 
-    Given a board like this:
-    	|		|	1	|	2	|	3	|
-    	|	1	|		|		|		|
-    	|	2	|		|		|		|
-    	|	3	|		|		|		|
-    When player x plays in row 2, column 1
-    Then the board should look like this:
-    	|		|	1	|	2	|	3	|
-    	|	1	|		|		|		|
-    	|	2	|	x	|		|		|
-    	|	3	|		|		|		|
+  @tag1
+  Scenario: Successful withdrawal from an account in credit
+    Given I have deposit $100 in my account
+    When I request $20
+    Then $20 should be dispensed
