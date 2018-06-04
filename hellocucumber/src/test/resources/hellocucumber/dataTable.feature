@@ -17,20 +17,19 @@
 ## (Comments)
 #Sample Feature Definition Template
 
-Feature: Checkout
-	
-	Pratice to write a test of checkout sth.
-	
-	Background:
-		Given the price of a "banana" is 40c
-    And the price of a "apple" is 25c		
-		
-  Scenario Outline: Checkout a banana and an apple
-    When I checkout <count1> <item1>
-    And I checkout <count2> <item2>
-    Then the total price should be <total>c
+Feature: Tic-tac-toe
+  
+	I want to use tic-tac-toe to practice handling data table.
 
-    Examples: 
-      |  item1		|	count1	|	item2		|	count2	|	total	|
-      |	"banana"	|	1				|	"apple"	|	1				|	65		|
-      | "apple"		|	3				|	"banana"|	2				| 155		|
+  Scenario: 
+    Given a board like this:
+    	|		|	1	|	2	|	3	|
+    	|	1	|		|		|		|
+    	|	2	|		|		|		|
+    	|	3	|		|		|		|
+    When player x plays in row 2, column 1
+    Then the board should look like this:
+    	|		|	1	|	2	|	3	|
+    	|	1	|		|		|		|
+    	|	2	|	x	|		|		|
+    	|	3	|		|		|		|
