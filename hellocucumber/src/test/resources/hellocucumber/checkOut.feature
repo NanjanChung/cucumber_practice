@@ -16,7 +16,7 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-
+@ignore
 Feature: Checkout
 	
 	Pratice to write a test of checkout sth.
