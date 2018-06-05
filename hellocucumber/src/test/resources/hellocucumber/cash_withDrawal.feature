@@ -16,11 +16,10 @@
 #""
 ## (Comments)
 #Sample Feature Definition Template
-@tag
+
 Feature: Cash Withdrawal
 
-  @tag1
   Scenario: Successful withdrawal from an account in credit
-    Given I have deposit $100 in my account
+    Given I have deposit $10.22 in my account
     When I request $20
     Then $20 should be dispensed

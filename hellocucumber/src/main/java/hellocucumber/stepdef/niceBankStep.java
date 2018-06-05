@@ -8,7 +8,7 @@ import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import hellocucumber.trans.moneyConverter;
+import hellocucumber.transforms.moneyConverter;
 import hellocucumber.util.Money;
 
 public class niceBankStep
@@ -16,11 +16,11 @@ public class niceBankStep
 
     class Account
     {
-        private Money balance = new Money();
+        private Money balance;
 
         public void deposit (Money amount)
         {
-            balance = balance.add(amount);
+            balance = amount;
         }
 
         public Money getBalance ()
@@ -30,7 +30,7 @@ public class niceBankStep
 
     }
 
-    @Given("^I have deposit \\$(\\d+\\.\\d+) in my account$")
+    @Given("^I have deposit (\\$\\d+\\.\\d+) in my account$")
     public void i_have_deposit_$_in_my_account (@Transform(moneyConverter.class) Money amount)
         throws Exception
     {
