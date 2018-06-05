@@ -30,30 +30,35 @@ public class niceBankStep
 
     }
 
-    @Given("^I have deposit (\\$\\d+\\.\\d+) in my account$")
-    public void i_have_deposit_$_in_my_account (@Transform(moneyConverter.class) Money amount)
-        throws Exception
+    class Teller
     {
-        Account myAccount = new Account();
-        myAccount.deposit(amount);
-
-        Assert.assertEquals("Incorrect account balance -", amount, myAccount.getBalance());
+        public viod withDrawFrom(Account,)
     }
 
-    @When("^I request \\$(\\d+)$")
-    public void i_request_$ (int arg1)
-        throws Exception
-    {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
+        @Given("^I have deposit (\\$\\d+\\.\\d+) in my account$")
+        public void i_have_deposit_$_in_my_account (@Transform(moneyConverter.class) Money amount)
+            throws Exception
+        {
+            Account myAccount = new Account();
+            myAccount.deposit(amount);
 
-    @Then("^\\$(\\d+) should be dispensed$")
-    public void $_should_be_dispensed (int arg1)
-        throws Exception
-    {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
+            Assert.assertEquals("Incorrect account balance -", amount, myAccount.getBalance());
+        }
+
+        @When("^I withDraw \\$(\\d+)$")
+        public void i_request_$ (int arg1)
+            throws Exception
+        {
+            Teller teller = new teller();
+            teller.withDrawFrom(myAccount, amount);
+        }
+
+        @Then("^\\$(\\d+) should be dispensed$")
+        public void $_should_be_dispensed (int arg1)
+            throws Exception
+        {
+            // Write code here that turns the phrase above into concrete actions
+            throw new PendingException();
+        }
 
 }
