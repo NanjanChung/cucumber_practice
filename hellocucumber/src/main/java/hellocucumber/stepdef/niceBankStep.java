@@ -14,6 +14,13 @@ import hellocucumber.util.Money;
 public class niceBankStep
 {
 
+	KnowsMyAccount helper;
+    
+    public niceBankStep() {
+    	helper = new KnowsMyAccount();
+    }
+	
+	
     class Account
     {
         private Money balance;
@@ -27,38 +34,87 @@ public class niceBankStep
         {
             return balance;
         }
-
+    }
+    
+    class CashSlot{
+    	
+    	private int contents;
+    	
+    	public int getContents() {
+    		return contents;
+    	}
+    	public void dispense(int dollars) {
+    		contents = dollars;
+    	}
     }
 
     class Teller
     {
-        public viod withDrawFrom(Account,)
+    	private CashSlot cashSlot;
+    	
+    	public Teller(CashSlot cashSlot) {
+    		this.cashSlot = cashSlot;
+    	}
+    	
+        public void withDrawFrom(Account account, int dollars) {
+        	cashSlot.dispense(dollars);
+        }
+    }
+    
+   
+    class KnowsMyAccount {
+    	
+    	private Account myAccount;
+    	private CashSlot cashSlot;
+    	private Teller teller;
+    	
+	    public Account getMyAccount() {
+	    	if (myAccount == null) {
+	    		myAccount= new Account();
+	    	}
+	    	return myAccount;
+	    }
+	    
+	    public CashSlot getCashSlot() {
+	    	if (cashSlot == null) {
+	    		cashSlot = new CashSlot();
+	    	}
+	    	return cashSlot;
+	    }
+	    
+	    public Teller getTeller() {
+	    	if (teller == null) {
+	    		teller = new Teller(cashSlot);
+	    	}
+	    	return teller;
+	    }
+	    
     }
 
-        @Given("^I have deposit (\\$\\d+\\.\\d+) in my account$")
-        public void i_have_deposit_$_in_my_account (@Transform(moneyConverter.class) Money amount)
-            throws Exception
-        {
-            Account myAccount = new Account();
-            myAccount.deposit(amount);
 
-            Assert.assertEquals("Incorrect account balance -", amount, myAccount.getBalance());
-        }
+    
+    @Given("^I have deposit (\\$\\d+\\.\\d+) in my account$")
+    public void i_have_deposit_$_in_my_account (@Transform(moneyConverter.class) Money amount)
+        throws Exception
+    {
 
-        @When("^I withDraw \\$(\\d+)$")
-        public void i_request_$ (int arg1)
-            throws Exception
-        {
-            Teller teller = new teller();
-            teller.withDrawFrom(myAccount, amount);
-        }
+        
+        helper.getMyAccount().deposit(amount);
+        Assert.assertEquals("Incorrect account balance -", amount, helper.getMyAccount().getBalance());
+    }
 
-        @Then("^\\$(\\d+) should be dispensed$")
-        public void $_should_be_dispensed (int arg1)
-            throws Exception
-        {
-            // Write code here that turns the phrase above into concrete actions
-            throw new PendingException();
-        }
+    @When("^I withdraw \\$(\\d+)$")
+    public void i_withDraw_$ (int dollars)
+        throws Exception
+    {
+        helper.getTeller().withDrawFrom(helper.getMyAccount(), dollars);
+    }
+
+    @Then("^\\$(\\d+) should be dispensed$")
+    public void $_should_be_dispensed (int dollars)
+        throws Exception
+    {
+        Assert.assertEquals("Incorrect amount dispensed - ", dollars, helper.getCashSlot().getContents());
+    }
 
 }
